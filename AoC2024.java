@@ -35,6 +35,15 @@ class AdventOfCode
 
             System.out.println(total);
 
+            total = 0;
+
+            for (Integer number : column1) {
+                total += (number * Collections.frequency(column2, number));
+            }
+
+            System.out.println(total);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
