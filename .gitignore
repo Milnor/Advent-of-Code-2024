@@ -1,0 +1,6 @@
+# Puzzle Inputs
+inputs/
+
+# Java Classes
+*.class
+
