@@ -1,3 +1,5 @@
+package com.aoc24;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -5,15 +7,23 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.aoc24.InputParser;
+
+// 1889772
+// 23228917
+// 287 good
+// 355 was too high
+
 class AdventOfCode
 {
 
-    private static boolean isSafe(ArrayList<Integer> report) {
+    private static boolean isSafe(ArrayList<Integer> report, boolean dampenerOn) {
 
         // Is it "safe?"
         // (1) all increasing or all decreasing
         // (2) differ by at least one AND at most three
         int previous = -1;
+        int problems = 0;
         Boolean isIncreasing = null;
         for (Integer current : report) {
             if (previous < 0) {
@@ -21,103 +31,56 @@ class AdventOfCode
                 continue;
             }
             if (previous == current) {
-                return false;
+                problems++;
             } 
             else if (previous < current) {
                 // test direction
-                if (isIncreasing != null) {
-                    if (isIncreasing == false) {
-                        return false;
-                    }
+                if (isIncreasing != null && isIncreasing == false) {
+                    problems++;
+                    isIncreasing = false;
+                    
                 } else {
                     isIncreasing = true;
                 }
                 // test gap
                 if ((current - previous) > 3) {
-                    return false;
+                    problems++;
                 }
             }
             else if (previous > current) {
                 // test direction
-                if (isIncreasing != null) {
-                    if (isIncreasing == true) {
-                        return false;
-                    }
+                if (isIncreasing != null && isIncreasing == true) {
+                        problems++;
+                        isIncreasing = true;
                 } else {
                     isIncreasing = false;
                 }
                 // test gap
                 if ((previous - current) > 3) {
-                    return false;
+                    problems++;
                 }
             }
             previous = current;
         }
 
-        return true;
+        if (dampenerOn && problems <= 1) {
+            return true;
+        } 
+        if (!dampenerOn && problems == 0) {
+            return true;
+        }
+        return false;
+
     }
+
+    private static final String DAY_1 = "inputs/day01.txt";
+    private static final String DAY_2 = "inputs/day02.txt";
 
     public static void main(String []args)
     {
-        String filePath = "inputs/day01.txt";
+        var records = InputParser.getInput(DAY_1);
+        System.out.println("Day1 Inputs: " + records);
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-
-
-            ArrayList<Integer> column1 = new ArrayList<Integer>();
-            ArrayList<Integer> column2 = new ArrayList<Integer>();
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] inputs = line.split("\\s+");
-                column1.add(Integer.parseInt(inputs[0]));
-                column2.add(Integer.parseInt(inputs[1]));
-            }
-            Collections.sort(column1);
-            Collections.sort(column2);
-
-            int total = 0;
-            for (int i = 0; i < column1.size(); i++) {
-                total += Math.abs(column1.get(i) - column2.get(i));
-            }
-
-            System.out.println(total);
-
-            total = 0;
-
-            for (Integer number : column1) {
-                total += (number * Collections.frequency(column2, number));
-            }
-
-            System.out.println(total);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        filePath = "inputs/day02.txt";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-
-            int total = 0;
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] inputs = line.split("\\s+");
-                ArrayList<Integer> current_row = new ArrayList<Integer>();
-                for (String number : inputs) {
-                    current_row.add(Integer.parseInt(number));
-                }
-                if (isSafe(current_row)) {
-                    total++;
-                }
-
-            }
-
-            System.out.println(total);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        
     }
 }
