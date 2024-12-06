@@ -1,9 +1,9 @@
 JC=javac
 
-all: InputParser.java AoC2024.java
-	$(JC) $^
+all: src/InputParser.java src/Main.java
+	$(JC) -d bin/ $^
 
 clean:
-	rm -f *.class
+	rm -rf bin/*
 
 .PHONY: all clean

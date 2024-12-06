@@ -1,4 +1,4 @@
-package com.aoc24;
+package aoc24;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,14 +7,14 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.aoc24.InputParser;
+import aoc24.InputParser;
 
 // 1889772
 // 23228917
 // 287 good
 // 355 was too high
 
-class AdventOfCode
+public class Main
 {
 
     private static boolean isSafe(ArrayList<Integer> report, boolean dampenerOn) {
@@ -73,8 +73,8 @@ class AdventOfCode
 
     }
 
-    private static final String DAY_1 = "inputs/day01.txt";
-    private static final String DAY_2 = "inputs/day02.txt";
+    private static final String DAY_1 = "../inputs/day01.txt";
+    private static final String DAY_2 = "../inputs/day02.txt";
 
     public static void main(String []args)
     {

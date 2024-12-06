@@ -1,4 +1,4 @@
-package com.aoc24;
+package aoc24;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
