@@ -84,8 +84,8 @@ public class Main
         d1.results();
         Day02 d2 = new Day02(DAY_2);
         d2.results();
-
-
+        Day03 d3 = new Day03(DAY_3);
+        d3.results();
         
     }
 }

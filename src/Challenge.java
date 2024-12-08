@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import java.util.regex.MatchResult;
+import java.util.regex.Pattern;
 
 import aoc24.InputParser;
 
@@ -77,3 +79,34 @@ class Day02 extends Challenge
     }
 }
 
+class Day03 extends Challenge
+{
+    public static int doMultiply(String opcode) {
+        var op = opcode.split(",");
+        var x = Integer.parseInt(op[0].substring(4));                       // strip out mul(
+        var y = Integer.parseInt(op[1].substring(0, op[1].length() - 1));   // strip out )
+        return x * y;
+    }
+
+    public Day03(String inputFile) {
+        super(inputFile);
+
+        // Part 1
+        int total = 0;
+        System.out.println("got here");
+        for (String line : this.data) {
+            // See https://stackoverflow.com/questions/6020384/create-array-of-regex-matches
+            String[] matches = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)")
+                                      .matcher(line)
+                                      .results()
+                                      .map(MatchResult::group)
+                                      .toArray(String[]::new);
+            for (String match : matches) {
+
+                System.out.println("Matches: " + match);
+                total += doMultiply(match);
+            }
+        }
+        this.part1 = total;
+    }
+}
