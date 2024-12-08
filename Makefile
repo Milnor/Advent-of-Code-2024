@@ -1,6 +1,6 @@
 JC=javac
 
-all: src/InputParser.java src/Main.java
+all: src/InputParser.java src/Challenge.java src/Main.java
 	$(JC) -d bin/ $^
 
 clean:

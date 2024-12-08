@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import aoc24.InputParser;
+import aoc24.Challenge;
 
 // 1889772
 // 23228917
@@ -16,9 +17,7 @@ import aoc24.InputParser;
 
 public class Main
 {
-
-    private static boolean isSafe(ArrayList<Integer> report, boolean dampenerOn) {
-
+        private static boolean isSafe(ArrayList<Integer> report, boolean dampenerOn) {
         // Is it "safe?"
         // (1) all increasing or all decreasing
         // (2) differ by at least one AND at most three
@@ -75,11 +74,17 @@ public class Main
 
     private static final String DAY_1 = "../inputs/day01.txt";
     private static final String DAY_2 = "../inputs/day02.txt";
+    private static final String DAY_3 = "../inputs/day03.txt";
+    private static final String DAY_4 = "../inputs/day04.txt";
 
     public static void main(String []args)
     {
-        var records = InputParser.getInput(DAY_1);
-        System.out.println("Day1 Inputs: " + records);
+        System.out.println("Advent of Code 2024 in Java:");
+        Day01 d1 = new Day01(DAY_1);
+        d1.results();
+        Day02 d2 = new Day02(DAY_2);
+        d2.results();
+
 
         
     }
