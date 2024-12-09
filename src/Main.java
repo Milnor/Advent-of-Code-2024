@@ -10,10 +10,15 @@ import java.util.Collections;
 import aoc24.InputParser;
 import aoc24.Challenge;
 
+// TODO: add correct values to tests
 // 1889772
 // 23228917
-// 287 good
+
+// 287
 // 355 was too high
+
+// 169021493
+// 10875477 was too low
 
 public class Main
 {
