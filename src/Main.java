@@ -11,14 +11,17 @@ import aoc24.InputParser;
 import aoc24.Challenge;
 
 // TODO: add correct values to tests
+// Day 1
 // 1889772
 // 23228917
 
+// Day 2
 // 287
 // 355 was too high
 
+// Day 3
 // 169021493
-// 10875477 was too low
+// 111762583
 
 public class Main
 {

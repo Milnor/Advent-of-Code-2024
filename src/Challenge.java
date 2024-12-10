@@ -93,10 +93,10 @@ class Day03 extends Challenge
 
         // Part 1
         int total = 0;
-        for (String line : this.data) {
+        String lines = this.data.toString();
             // See https://stackoverflow.com/questions/6020384/create-array-of-regex-matches
             String[] matches = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)")
-                                      .matcher(line)
+                                      .matcher(lines)
                                       .results()
                                       .map(MatchResult::group)
                                       .toArray(String[]::new);
@@ -105,43 +105,25 @@ class Day03 extends Challenge
                 //System.out.println("Matches: " + match);
                 total += doMultiply(match);
             }
-        }
+        
         this.part1 = total;
 
         // Part 2
         total = 0;
-        String keepers = "";
-        // First chunk to keep is beginning until don't()
-        // Then we want anything between do() and don't()
-        // Finally, if do() occurs last we want do() through EOF
-        // ... or maybe there's a simpler algorithm:
-        // string split() on don't()
-        //  a b c [dont] d e f [dont] g h i [dont] j k l
-        //  keep first hunk
-        //  in subsequent hunks, split on do() and keep second portion
-        String[] pieces = this.data.get(0).split("don't()");
-        keepers += pieces[0];
-        for (int i = 1; i < pieces.length; i++) {
-            // edge case
-            if (pieces[i].startsWith("do()")) {
-                keepers += pieces[i];
-            } else {
-                String[] subPiece = pieces[i].split("do()");
-                if (subPiece.length > 1) {
-                    for (int j = 1; j < subPiece.length; j++) {
-                        keepers += subPiece[j];
-                    }
-                }
-            }
-        }
-        String[] matches = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)")
-                         .matcher(keepers)
+        // trim out don't()...do()
+        // the ? makes the regex non-greedy
+        String enabled = lines.replaceAll("don\\'t\\(\\).*?do\\(\\)", "");
+        // trim out don't()...EOF if it exists
+        enabled = enabled.replaceAll("don\\'t\\(\\).*$", "");
+        matches = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)")
+                         .matcher(enabled)
                          .results()
                          .map(MatchResult::group)
                          .toArray(String[]::new);
         for (String match : matches) {
             total += doMultiply(match);
         }
+
         this.part2 = total;
 
     }
