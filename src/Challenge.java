@@ -76,19 +76,71 @@ class Day02 extends Challenge
     public static List<List<Integer>> toIntervals(List<List<Integer>> rows) {
 
         List<List<Integer>> allRows = new ArrayList<>();
-        int previous = -1;
-        int current = -1;
+
         for (List<Integer> row : rows) {
-            // pass
+            List<Integer> currentRow = new ArrayList();
+            int previous = row.get(0);
+            for (int i = 1; i < row.size(); i++) {
+                int current = row.get(i);
+                int interval = current - previous;
+                currentRow.add(interval);
+                previous = current;
+            }
+            allRows.add(currentRow);
         }
 
         return allRows;
     }
 
+    private static boolean isSafe(List<Integer> intervals) {
+
+        Boolean increasing = null;
+        boolean safe = true;
+
+        for (int interval : intervals) {
+            if (0 == interval) {
+                safe = false;
+            } else if (interval > 0) {
+                if (null == increasing) {
+                    increasing = true;
+                } else if (false == increasing) {
+                    // change in direction
+                    safe = false;
+                }
+
+            } else if (interval < 0) {
+                if (null == increasing) {
+                    increasing = false;
+                } else if (increasing) {
+                    // change in direction
+                    safe = false;
+                }
+            }
+            // check magnitude
+            if (Math.abs(interval) > 3) {
+                safe = false;
+            }
+        }
+
+        return safe;
+    }
+
     public Day02(String inputFile) {
         super(inputFile);
         var rows = InputParser.toManyIntRows(this.data);
-        var intervals = toIntervals(rows);
+        var allIntervals = toIntervals(rows);
+
+        // Part 1
+        int safe = 0;
+        for (List<Integer> intervalList : allIntervals) {
+            if (isSafe(intervalList)) {
+                safe++;
+            }
+        }
+        this.part1 = safe;
+
+        // Part 2
+        // TODO: Dampener will try removing one bad level exactly once.
     }
 }
 
@@ -139,5 +191,15 @@ class Day03 extends Challenge
 
         this.part2 = total;
 
+    }
+}
+
+class Day04 extends Challenge
+{
+
+    public Day04(String inputFile) {
+        super(inputFile);
+        var rows = InputParser.toManyIntRows(this.data);
+        //var intervals = toIntervals(rows);
     }
 }

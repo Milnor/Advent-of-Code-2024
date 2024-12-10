@@ -26,61 +26,6 @@ import aoc24.Challenge;
 
 public class Main
 {
-        // TODO: this needs to move to Challenge.java:Day02 class
-        private static boolean isSafe(ArrayList<Integer> report, boolean dampenerOn) {
-        // Is it "safe?"
-        // (1) all increasing or all decreasing
-        // (2) differ by at least one AND at most three
-        int previous = -1;
-        int problems = 0;
-        Boolean isIncreasing = null;
-        for (Integer current : report) {
-            if (previous < 0) {
-                previous = current;
-                continue;
-            }
-            if (previous == current) {
-                problems++;
-            } 
-            else if (previous < current) {
-                // test direction
-                if (isIncreasing != null && isIncreasing == false) {
-                    problems++;
-                    isIncreasing = false;
-                    
-                } else {
-                    isIncreasing = true;
-                }
-                // test gap
-                if ((current - previous) > 3) {
-                    problems++;
-                }
-            }
-            else if (previous > current) {
-                // test direction
-                if (isIncreasing != null && isIncreasing == true) {
-                        problems++;
-                        isIncreasing = true;
-                } else {
-                    isIncreasing = false;
-                }
-                // test gap
-                if ((previous - current) > 3) {
-                    problems++;
-                }
-            }
-            previous = current;
-        }
-
-        if (dampenerOn && problems <= 1) {
-            return true;
-        } 
-        if (!dampenerOn && problems == 0) {
-            return true;
-        }
-        return false;
-
-    }
 
     private static final String DAY_1 = "../inputs/day01.txt";
     private static final String DAY_2 = "../inputs/day02.txt";
@@ -93,12 +38,15 @@ public class Main
                            + Color.ANSI_RESET + "in " 
                            + Color.ANSI_YELLOW + "Java" + Color.ANSI_RESET
                            + ":");
+
         Day01 d1 = new Day01(DAY_1);
         d1.results();
         Day02 d2 = new Day02(DAY_2);
         d2.results();
         Day03 d3 = new Day03(DAY_3);
         d3.results();
-        
+        Day04 d4 = new Day04(DAY_4);
+        d4.results();        
     }
 }
+

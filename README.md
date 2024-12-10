@@ -12,5 +12,11 @@ make
 cd bin/
 java aoc24.Main
 ```
+
+## TODO
+* [] find a tool to clean up imports
+* [] linting
+* [] tests... don't want to install an IDE just for unit test compatibility
+
 For reasons I don't yet understand, you can't just run `java bin.aoc24.Main` from the top-level directory.
 
