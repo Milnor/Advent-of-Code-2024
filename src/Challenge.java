@@ -12,22 +12,35 @@ import java.util.Collections;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
+import aoc24.Color;
 import aoc24.InputParser;
 
 public class Challenge
 {
     List<String> data;
+    int day;
     int part1;
     int part2;
     
     public Challenge(String inputFile) {
         this.part1 = 0;
         this.part2 = 0;
+        // https://stackoverflow.com/questions/43584348/java-match-regex-and-extract-group-oneliner
+        String dayNumber = Pattern.compile("\\d{1,2}")
+                                  .matcher(inputFile)
+                                  .results()
+                                  .map(m -> m.group(0))
+                                  .findFirst()
+                                  .orElse(null);
+        this.day = Integer.parseInt(dayNumber);
         this.data = InputParser.getInput(inputFile); 
     }   
 
     public void results() {
-        System.out.println("Part 1: " + this.part1 + " Part 2: " + this.part2);
+        System.out.println(" Day " + this.day + Color.ANSI_RED + "\t1: " + 
+                           Color.ANSI_GREEN + this.part1 + Color.ANSI_RED + 
+                           "\t2: " + Color.ANSI_GREEN + this.part2 + 
+                           Color.ANSI_RESET);
     }
 }
 

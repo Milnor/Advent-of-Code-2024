@@ -7,6 +7,7 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import aoc24.Color;
 import aoc24.InputParser;
 import aoc24.Challenge;
 
@@ -25,6 +26,7 @@ import aoc24.Challenge;
 
 public class Main
 {
+        // TODO: this needs to move to Challenge.java:Day02 class
         private static boolean isSafe(ArrayList<Integer> report, boolean dampenerOn) {
         // Is it "safe?"
         // (1) all increasing or all decreasing
@@ -87,7 +89,10 @@ public class Main
 
     public static void main(String []args)
     {
-        System.out.println("Advent of Code 2024 in Java:");
+        System.out.println(Color.ANSI_BOLD + "Advent of Code 2024 " 
+                           + Color.ANSI_RESET + "in " 
+                           + Color.ANSI_YELLOW + "Java" + Color.ANSI_RESET
+                           + ":");
         Day01 d1 = new Day01(DAY_1);
         d1.results();
         Day02 d2 = new Day02(DAY_2);
