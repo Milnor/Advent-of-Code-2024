@@ -140,26 +140,27 @@ class Day02 extends Challenge
         this.part1 = safe;
 
         // Part 2
-        // TODO: Dampener will try removing one bad level exactly once.
+        safe = 0;
+        for (List<Integer> row : rows) {
+            // Apply Problem Dampener
+        }
+        this.part2 = safe;
     }
 }
 
 class Day03 extends Challenge
 {
-    public static int doMultiply(String opcode) {
+    private static int doMultiply(String opcode) {
         var op = opcode.split(",");
         var x = Integer.parseInt(op[0].substring(4));                       // strip out mul(
         var y = Integer.parseInt(op[1].substring(0, op[1].length() - 1));   // strip out )
         return x * y;
     }
 
-    public Day03(String inputFile) {
-        super(inputFile);
-
-        // Part 1
-        int total = 0;
-        String lines = this.data.toString();
+    private static int calculateTotals(String lines) {
+        
             // See https://stackoverflow.com/questions/6020384/create-array-of-regex-matches
+            int total = 0;
             String[] matches = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)")
                                       .matcher(lines)
                                       .results()
@@ -170,27 +171,22 @@ class Day03 extends Challenge
                 //System.out.println("Matches: " + match);
                 total += doMultiply(match);
             }
-        
-        this.part1 = total;
+            return total;
+    }
+
+    public Day03(String inputFile) {
+        super(inputFile);
+
+        // Part 1
+        String lines = this.data.toString();
+        this.part1 = calculateTotals(lines);
 
         // Part 2
-        total = 0;
-        // trim out don't()...do()
-        // the ? makes the regex non-greedy
+        // trim out don't()...do(), the ? makes the regex non-greedy
         String enabled = lines.replaceAll("don\\'t\\(\\).*?do\\(\\)", "");
         // trim out don't()...EOF if it exists
         enabled = enabled.replaceAll("don\\'t\\(\\).*$", "");
-        matches = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)")
-                         .matcher(enabled)
-                         .results()
-                         .map(MatchResult::group)
-                         .toArray(String[]::new);
-        for (String match : matches) {
-            total += doMultiply(match);
-        }
-
-        this.part2 = total;
-
+        this.part2 = calculateTotals(enabled);
     }
 }
 
@@ -199,7 +195,9 @@ class Day04 extends Challenge
 
     public Day04(String inputFile) {
         super(inputFile);
-        var rows = InputParser.toManyIntRows(this.data);
+        //var rows = InputParser.toManyIntRows(this.data);
         //var intervals = toIntervals(rows);
+        this.part1 = -1;
+        this.part2 = -1;
     }
 }
